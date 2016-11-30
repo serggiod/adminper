@@ -1,21 +1,21 @@
 angular
 .module('legapp')
-.controller('actividadController',function($scope,$rootScope,$http,$session){
+.controller('marcosPazController',function($scope,$rootScope,$http,$session){
 	
 	$scope.routes = {
 		get:{
-			actividades:'/rest/ful/adminadd/index.php/actividades',
-			actividad  :'/rest/ful/adminadd/index.php/actividad/'
+			actividades:'/rest/ful/adminmpz/index.php/actividades',
+			actividad  :'/rest/ful/adminmpz/index.php/actividad/'
 		},
 		post:{
-			actividad  :'/rest/ful/adminadd/index.php/actividad'
+			actividad  :'/rest/ful/adminmpz/index.php/actividad'
 		},
 		put:{
-			actividad  :'/rest/ful/adminadd/index.php/actividad/'
+			actividad  :'/rest/ful/adminmpz/index.php/actividad/'
 		},
 		delete:{
-			actividad  :'/rest/ful/adminadd/index.php/actividad/',
-			archivo    :'/rest/ful/adminadd/index.php/actividad/archivo/'
+			actividad  :'/rest/ful/adminmpz/index.php/actividad/',
+			archivo    :'/rest/ful/adminmpz/index.php/actividad/archivo/'
 		}
 	};
 
@@ -339,8 +339,9 @@ angular
 						estado:json.rows[i].estado
 					});
 				}
-				$scope.forms.actividadListar.display=true;
+				
 			}});
+		$scope.forms.actividadListar.display=true;
 	};
 
 	$session.autorize(()=>{

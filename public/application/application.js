@@ -15,8 +15,8 @@ angular.module('legapp',
 	    		redirectTo:'/actividad'
 	    	})
 			.when('/actividad',{
-				templateUrl:'views/actividadView.html',
-				controller:'actividadController'
+				templateUrl:'views/marcosPazView.html',
+				controller:'marcosPazController'
 			})
 			.otherwise({redirectTo:'/actividad'});
 	});
