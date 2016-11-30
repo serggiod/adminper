@@ -12,11 +12,11 @@ angular.module('legapp',
 
 	    $routeProvider
 	    	.when('/',{
-	    		redirectTo:'/actividad'
+	    		redirectTo:'/personal'
 	    	})
-			.when('/actividad',{
-				templateUrl:'views/marcosPazView.html',
-				controller:'marcosPazController'
+			.when('/personal',{
+				templateUrl:'views/personalView.html',
+				controller:'personalController'
 			})
-			.otherwise({redirectTo:'/actividad'});
+			.otherwise({redirectTo:'/personal'});
 	});

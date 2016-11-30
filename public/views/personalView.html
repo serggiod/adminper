@@ -1,0 +1,234 @@
+<div class="container-fluid">
+    
+    <!-- Status: Procesando Datos... Espere -->
+    <div ng-show="statusbar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{statusbar.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{statusbar.progress}}%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dialog: Autorizar Modificar -->
+    <div ng-show="dialogs.autorizarModificar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        AUTORIZAR / Modificar
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    ¿Esta seguro que desea modificar este registro?
+                </div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="dialogs.autorizarModificar.no()" class="btn btn-danger pull-left">No</button>
+                    <button ng-click="dialogs.autorizarModificar.si()" class="btn btn-success pull-right">Si</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dialog: Autorizar Eliminar -->
+    <div ng-show="dialogs.autorizarEliminar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        AUTORIZAR / Eliminar
+                    </h4>
+                </div>
+                <div class="panel-body">¿Esta seguro que desea eliminar este registro?</div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="dialogs.autorizarEliminar.no()" class="btn btn-danger  pull-left">No</button>
+                    <button ng-click="dialogs.autorizarEliminar.si()" class="btn btn-success pull-right">Si</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form: Personal Nuevo -->
+    <div ng-show="forms.personalNuevo.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-capitalize">
+                        FORMULARIO / Personal / Nuevo
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    
+                    <!-- id -->
+                    <div class="input-group">
+                        <div class="input-group-addon">ID</div>
+                        <input type="text" class="form-control" readonly="true" ng-model="modelo.id">
+                    </div>
+
+                    <!-- nombres -->
+                    <div class="input-group">
+                        <div class="input-group-addon">NOMBRES</div>
+                        <input class="form-control" type="text" maxlength="50" ng-model="modelo.nombres">
+                    </div>
+
+                    <!-- apellidos -->
+                    <div class="input-group">
+                        <div class="input-group-addon">APELLIDOS</div>
+                        <input class="form-control" type="text" maxlength="50" ng-model="modelo.apellidos">
+                    </div>
+
+                    <!-- funcion -->
+                    <div class="input-group">
+                        <div class="input-group-addon">FUNCION</div>
+                        <input class="form-control" type="text" maxlength="15" ng-model="modelo.funcion">
+                    </div>
+
+                </div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="forms.personalNuevo.cancelar()" class="btn btn-danger pull-left">Cancelar</button>
+                    <button ng-click="forms.personalNuevo.aceptar()" class="btn btn-success pull-right">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form: Actividad Modificar -->
+    <div ng-show="forms.personalModificar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-capitalize">
+                        FORMULARIO / Personal / Modificar
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    
+                    <!-- id -->
+                    <div class="input-group">
+                        <div class="input-group-addon">ID</div>
+                        <input type="text" class="form-control" readonly="true" ng-model="modelo.id">
+                    </div>
+
+                    <!-- nombres -->
+                    <div class="input-group">
+                        <div class="input-group-addon">NOMBRES</div>
+                        <input class="form-control" type="text" maxlength="50" ng-model="modelo.nombres">
+                    </div>
+
+                    <!-- apellidos -->
+                    <div class="input-group">
+                        <div class="input-group-addon">APELLIDOS</div>
+                        <input class="form-control" type="text" maxlength="50" ng-model="modelo.apellidos">
+                    </div>
+
+                    <!-- funcion -->
+                    <div class="input-group">
+                        <div class="input-group-addon">FUNCION</div>
+                        <input class="form-control" type="text" maxlength="15" ng-model="modelo.funcion">
+                    </div>
+
+                </div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="forms.personalModificar.cancelar()" class="btn btn-danger pull-left" type="button">Cancelar</button>
+                    <button ng-click="forms.personalModificar.aceptar()" class="btn btn-success pull-right" type="button">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form: Actividad Visualizar -->
+    <div ng-show="forms.personalVisualizar.display" class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-capitalize">
+                        FORMULARIO / Personal / Visualizar
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    
+                    <!-- id -->
+                    <div class="input-group">
+                        <div class="input-group-addon">ID</div>
+                        <input type="text" class="form-control" readonly="true" ng-model="modelo.id">
+                    </div>
+
+                    <!-- nombres -->
+                    <div class="input-group">
+                        <div class="input-group-addon">NOMBRES</div>
+                        <input class="form-control" type="text" maxlength="50" readonly="true" ng-model="modelo.nombres">
+                    </div>
+
+                    <!-- apellidos -->
+                    <div class="input-group">
+                        <div class="input-group-addon">APELLIDOS</div>
+                        <input class="form-control" type="text" maxlength="50" readonly="true" ng-model="modelo.apellidos">
+                    </div>
+
+                    <!-- funcion -->
+                    <div class="input-group">
+                        <div class="input-group-addon">FUNCION</div>
+                        <input class="form-control" type="text" maxlength="15" readonly="true" ng-model="modelo.funcion">
+                    </div>
+
+                </div>
+                <div class="panel-footer clearfix">
+                    <button ng-click="forms.personalVisualizar.aceptar()" class="btn btn-success pull-right">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form: Actividad Lista -->
+    <div ng-show="forms.personalListar.display" class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title text-capitalize">
+                        FORMULARIO / Personal / Lista
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <button ng-click="forms.personalListar.nuevaPersona()" class="btn btn-success">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        Nuevo Personal
+                    </button>
+                    <table class="table table-striped table-hover table-bordered table-responsive text-center">
+                        <tr>
+                            <td><strong>ID</strong></td>
+                            <td><strong>NOMBRES</strong></td>
+                            <td><strong>APELLIDOS</strong></td>
+                            <td><strong>FUNCION</strong></td>
+                            <td style="width:150px;"><strong>ACCIONES</strong></td>
+                        </tr>
+                        <tr ng-repeat="(k,l) in lista">
+                            <td>{{l.id}}</td>
+                            <td>{{l.nombres}}</td>
+                            <td>{{l.apellidos}}</td>
+                            <td>{{l.funcion}}</td>
+                            <td>
+                                <button ng-click="forms.personalListar.visualizarPersona(k)" class="btn btn-primary btn-xs" type="button">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                </button>
+                                <button ng-click="forms.personalListar.modificarPersona(k)" class="btn btn-primary btn-xs" type="button">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </button>
+                                <button ng-click="forms.personalListar.activarPersona(k)" class="btn btn-primary btn-xs" type="button">
+                                    <i class="glyphicon glyphicon-random"></i>
+                                </button>
+                                <button ng-click="forms.personalListar.eliminarPersona(k)" class="btn btn-danger btn-xs" type="button">
+                                    <i class="glyphicon glyphicon-minus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>                    
+                </div>
+
+                
+                <div class="panel-footer">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
