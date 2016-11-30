@@ -213,6 +213,9 @@ angular
 			aceptar:()=>{
 				$scope.displayFalse();
 				uri = $scope.routes.put.actividad+$scope.modelo.id;
+				tmp = [];
+				for(i in $scope.modelo.archivos) if($scope.modelo.archivos[i].resource=='local') tmp.push($scope.modelo.archivos[i]);
+				$scope.modelo.archivos = tmp;
 				$http
 					.put(uri,$scope.modelo)
 					.error(()=>{console.log(uri+' : No Data');})
