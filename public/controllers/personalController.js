@@ -4,8 +4,7 @@ angular
 	
 	$scope.routes = {
 		get:{
-			personal :'/rest/ful/adminper/index.php/personal',
-			persona  :'/rest/ful/adminper/index.php/persona/'
+			personal :'/rest/ful/adminper/index.php/personal'
 		},
 		post:{
 			persona  :'/rest/ful/adminper/index.php/persona'
@@ -23,57 +22,30 @@ angular
 		id:'',
 		apellidos:'',
 		nombres:'',
-		funcion:''
+		funcion:'',
+		sector:''
 	};
 
 	$scope.lista = [];
 
-	// Estructura de control de la presentacion.
-	$scope.statusbar = {
-		display:false,
-		progress:'0'
-	};
-
 	$scope.dialogs = {
 		autorizarModificar:{
 			display:false,
-			no:()=>{
-				$scope.modelo.key=null;
-				$scope.modelo.id=null;
-				$scope.displayFalse();
-				$scope.forms.personalListar.display=true;
-			},
+			no:()=>{$scope.listaGet();},
 			si:()=>{
 				$scope.displayFalse();
-				$http
-					.get($scope.routes.get.persona+$scope.modelo.id)
-					.error(()=>{console.log($scope.routes.get.persona+$scope.modelo.id+' : No Data');})
-					.success((json)=>{if(json.result){
-						$scope.modelo.nombres=json.rows.nombres;
-						$scope.modelo.apellidos=json.rows.apellidos;
-						$scope.modelo.funcion=json.rows.funcion;
-						$scope.forms.personalModificar.display=true;
-					}});
+				$scope.forms.personalModificar.display=true;
 			}
 		},
 		autorizarEliminar:{
 			display:false,
-			no:()=>{
-				$scope.displayFalse();
-				$scope.forms.personalListar.display=true;
-			},
+			no:()=>{$scope.listaGet();},
 			si:()=>{
-				$scope.displayFalse();
 				uri = $scope.routes.delete.persona+$scope.modelo.id;
 				$http
 					.delete(uri)
 					.error(()=>{console.log(uri+' : No Data')})
-					.success((json)=>{if(json.result){
-						$scope.lista.splice($scope.modelo.key,1);
-						$scope.modelo.key=null;
-						$scope.modelo.id=null;
-						$scope.forms.personalListar.display=true;
-					}});
+					.success((json)=>{if(json.result) $scope.listaGet();});
 			}
 		},
 	};
@@ -81,62 +53,33 @@ angular
 	$scope.forms  = {
 		personalNuevo:{
 			display:false,
-			cancelar:()=>{
-				$scope.modelo.key=null;
-				$scope.modelo.id=null;
-				$scope.displayFalse();
-				$scope.forms.personalListar.display=true;
-			},
+			cancelar:()=>{$scope.listaGet();},
 			aceptar:()=>{
-				$scope.displayFalse();
 				$session.autorize(()=>{
+					uri = $scope.routes.post.persona;
 					$http
-						.post($scope.routes.post.persona,$scope.modelo)
-						.error(()=>{console.log($scope.routes.post.persona+' : No Data');})
-						.success((json)=>{if(json.result){
-							$scope.lista.unshift({
-								id:json.rows.id,
-								nombres:json.rows.nombres,
-								apellidos:json.rows.apellidos,
-								funcion:json.rows.funcion
-							});
-						}});
+						.post(uri,$scope.modelo)
+						.error(()=>{$scope.listaGet();})
+						.success((json)=>{if(json.result)$scope.listaGet();});
 				});
-				$scope.forms.personalListar.display=true;
 			}
 		},
 		personalModificar:{
 			display:false,
-			cancelar:()=>{
-				$scope.modelo.id=null;
-				$scope.displayFalse();
-				$scope.forms.personalListar.display=true;
-			},
+			cancelar:()=>{$scope.listaGet();},
 			aceptar:()=>{
-				$scope.displayFalse();
-				uri = $scope.routes.put.persona+$scope.modelo.id;
-				$http
-					.put(uri,$scope.modelo)
-					.error(()=>{console.log(uri+' : No Data');})
-					.success((json)=>{if(json.result){
-						$scope.lista.splice($scope.modelo.key,1);
-						$scope.lista.unshift({
-							id:json.rows.id,
-							nombres:json.rows.nombres,
-							apellidos:json.rows.apellidos,
-							funcion:json.rows.funcion
-						});
-						$scope.forms.personalListar.display=true;
-					}});
+				$session.autorize(()=>{
+					uri = $scope.routes.put.persona+$scope.modelo.id;
+					$http
+						.put(uri,$scope.modelo)
+						.error(()=>{$scope.listaGet();})
+						.success((json)=>{if(json.result)$scope.listaGet();});
+				});
 			}
 		},
 		personalVisualizar:{
 			display:false,
-			aceptar:()=>{
-				$scope.displayFalse();
-				$scope.forms.personalListar.display=true;
-			},
-		
+			aceptar:()=>{$scope.listaGet();}
 		},
 		personalListar:{
 			display:false,
@@ -147,33 +90,29 @@ angular
 				$scope.modelo.nombres='';
 				$scope.modelo.apellidos='';
 				$scope.modelo.funcion='';
-				$scope.forms.actividadNuevo.display=true;
+				$scope.modelo.sector='';
+				$scope.forms.personalNuevo.display=true;
 			},
 			visualizarPersona:(k)=>{
-				id = $scope.lista[k].id;
+				modelo = $scope.lista[k];
 				$scope.displayFalse();
-				$http
-					.get($scope.routes.get.actividad+id)
-					.error(()=>{console.log($scope.routes.get.actividad+id+' : No Data');})
-					.success((json)=>{if(json.result){
-						$scope.modelo.id=json.rows.id;
-						$scope.modelo.nombres=json.rows.nombres;
-						$scope.modelo.apellidos=json.rows.apellidos;
-						$scope.modelo.funcion=json.rows.funcion;
-						$scope.forms.actividadVisualizar.display=true;
-					}});
+				$scope.modelo.id=modelo.id;
+				$scope.modelo.nombres=modelo.nombres;
+				$scope.modelo.apellidos=modelo.apellidos;
+				$scope.modelo.funcion=modelo.funcion;
+				$scope.modelo.sector=modelo.sector;
+				$scope.forms.personalVisualizar.display=true;
 			},
 			modificarPersona:(k)=>{
-				$scope.modelo.key=k;
-				$scope.modelo.id=$scope.lista[k].id;
+				modelo = $scope.lista[k];
+				$scope.modelo.key = k;
+				$scope.modelo.id=modelo.id;
+				$scope.modelo.nombres=modelo.nombres;
+				$scope.modelo.apellidos=modelo.apellidos;
+				$scope.modelo.funcion=modelo.funcion;
+				$scope.modelo.sector=modelo.sector;
 				$scope.displayFalse();
 				$scope.dialogs.autorizarModificar.display=true;
-			},
-			activarPersona:(k)=>{
-				$scope.modelo.key=k;
-				$scope.modelo.id=$scope.lista[k].id
-				$scope.displayFalse();
-				$scope.dialogs.autorizarActivar.display=true;
 			},
 			eliminarPersona:(k)=>{
 				$scope.modelo.key=k;
@@ -185,7 +124,6 @@ angular
 	};
 
 	$scope.displayFalse = ()=>{
-		$scope.statusbar.display=false;
 		$scope.dialogs.autorizarModificar.display=false;
 		$scope.dialogs.autorizarEliminar.display=false;
 		$scope.forms.personalNuevo.display=false;
@@ -194,28 +132,24 @@ angular
 		$scope.forms.personalListar.display=false;
 	};
 
-	$scope.init = ()=>{
-		data = $session.get('user');
-		$scope.user = JSON.parse(data);
-		$rootScope.usuario = $scope.user.usuario;
-		$rootScope.stage=true;
+	$scope.listaGet = ()=>{
 		$scope.displayFalse();
 		uri = $scope.routes.get.personal;
 		$http
 			.get(uri)
 			.error(()=>{console.log(uri+' : No Data');})
 			.success((json)=>{if(json.result){
-				for(i in json.rows){
-					$scope.lista.push({
-						id:json.rows[i].id,
-						nombres:json.rows[i].nombres,
-						apellidos:json.rows[i].apellidos,
-						funcion:json.rows[i].funcion
-					});
-				}
-				
-			}});
-		$scope.forms.personalListar.display=true;
+				$scope.lista=json.rows;
+				$scope.forms.personalListar.display=true;
+			}});		
+	};
+
+	$scope.init = ()=>{
+		data = $session.get('user');
+		$scope.user = JSON.parse(data);
+		$rootScope.usuario = $scope.user.usuario;
+		$rootScope.stage=true;
+		$scope.listaGet();
 	};
 
 	$session.autorize(()=>{
